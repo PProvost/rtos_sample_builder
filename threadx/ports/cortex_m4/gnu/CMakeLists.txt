@@ -32,4 +32,5 @@ set(LINK_OPTIONS
 # Any additional object files (e.g. libc.a) that should be linked for this target
 set(LINK_EXTRA_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/libc.a"
+    PARENT_SCOPE
 )

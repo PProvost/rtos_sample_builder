@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+# NOTE: 3.13.5 req'd for add_link_options, 3.14 required for CPM
 
 # Set these to match your chip architecture and build toolchain
 set(THREADX_ARCH "cortex_m4")
@@ -46,8 +47,8 @@ target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
 target_link_libraries(threadX_demo PRIVATE threadX_lib ${LINK_EXTRA_FILES})
 
 # Custom command to copy the output file into a .BIN file
-# add_custom_command(
-#     TARGET ${PROJECT_NAME}
-#     POST_BUILD
-#         COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
-# )
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
+)
