@@ -1,18 +1,18 @@
 #!/bin/bash
 
-mkdir -p "build" # create if it doesn't exist
-pushd build
-if [ "$?" -ne "0" ]; then
-    echo "Error creating build directory"
-fi
+# Use paths relative to this script's location
+SCRIPT=$(readlink -f "$0")
+BASEDIR=$(dirname "$SCRIPT")
 
-# Clean up the build folder
-rm -rf *
+# If you want to build into a different directory, change this variable
+BUILDDIR="$BASEDIR/build"
 
-# Run cmake in the project root directory, using the toolchain
-cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake ..
+# Create our build folder if required and clear it
+mkdir -p $BUILDDIR
+rm -rf $BUILDDIR/*
 
-# Run make to finish things off and generate our .bin file
-make
+# Generate the build system
+cmake -B"$BUILDDIR" -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/arm-gcc-toolchain.cmake $BASEDIR
 
-popd
+# And then do the build
+cmake --build $BUILDDIR

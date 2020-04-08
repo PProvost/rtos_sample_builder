@@ -30,7 +30,6 @@ add_executable(${PROJECT_NAME} ${APP_SOURCES})
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 
-
 # Bring down the threadx lib and build it with the sample
 include(cmake/CPM.cmake)
 CPMAddPackage(
