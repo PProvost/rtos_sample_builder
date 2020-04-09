@@ -2,12 +2,15 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 # NOTE: 3.13.5 req'd for add_link_options, 3.14 required for CPM
 
 # Set these to match your chip architecture and build toolchain
-option(THREADX_ARCH "" "cortex_m4")
-option(THREADX_TOOLCHAIN "" "gnu")
+set(THREADX_ARCH "cortex_m4" CACHE STRING "")
+set(THREADX_TOOLCHAIN "gnu" CACHE STRING "")
+
+# Provide a custom tx_user.h file
+set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/common/tx_user.h" CACHE STRING "")
 
 project(threadX_demo
     VERSION 6.0.0
-    LANGUAGES C
+    LANGUAGES C ASM
 )
 
 # Add the demo source files
@@ -24,7 +27,7 @@ add_compile_options(${COMPILE_OPTIONS})
 add_link_options(${LINK_OPTIONS})
 
 # Tell CMake we're making an executable
-add_executable(${PROJECT_NAME} ${APP_SOURCES})
+add_executable(${PROJECT_NAME})
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
@@ -35,9 +38,12 @@ CPMAddPackage(
     NAME threadX_lib
     GIT_REPOSITORY git@github.com:azurertos/threadx.git
     GIT_TAG master
-    OPTIONS
-        # Tell threadX to use our custom tx_user.h
-        "TX_USER_FILE ${CMAKE_CURRENT_LIST_DIR}/common/tx_user.h"
+)
+
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        ${PORT_SOURCES}
+        ${APP_SOURCES}
 )
 
 # And use the provided linker script on the targets
