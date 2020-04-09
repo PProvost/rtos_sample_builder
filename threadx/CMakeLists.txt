@@ -43,6 +43,7 @@ CPMAddPackage(
 # Option 2 - Include threadX from a local source dir (e.g. git submodule)
 # add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 
+# Add the sources
 target_sources(${PROJECT_NAME}
     PRIVATE
         ${PORT_SOURCES}
