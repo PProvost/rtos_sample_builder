@@ -6,7 +6,7 @@ set(THREADX_ARCH "cortex_m4" CACHE STRING "")
 set(THREADX_TOOLCHAIN "gnu" CACHE STRING "")
 
 # Provide a custom tx_user.h file
-set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/common/tx_user.h" CACHE STRING "")
+set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/common/inc/tx_user.h" CACHE STRING "")
 
 project(threadX_demo
     VERSION 6.0.0
@@ -15,7 +15,7 @@ project(threadX_demo
 
 # Add the demo source files
 set(APP_SOURCES
-    common/demo_threadx.c
+    common/src/demo_threadx.c
 )
 
 # Pick up the port specific variables
