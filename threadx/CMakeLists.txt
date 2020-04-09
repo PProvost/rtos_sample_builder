@@ -32,13 +32,16 @@ add_executable(${PROJECT_NAME})
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 
-# Bring down the threadx lib and build it with the sample
+# Option 1 - Include threadX dynamically at build configuration time
 include(cmake/CPM.cmake)
 CPMAddPackage(
     NAME threadX_lib
     GIT_REPOSITORY git@github.com:azurertos/threadx.git
     GIT_TAG master
 )
+
+# Option 2 - Include threadX from a local source dir (e.g. git submodule)
+# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 
 target_sources(${PROJECT_NAME}
     PRIVATE
