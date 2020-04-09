@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 # NOTE: 3.13.5 req'd for add_link_options, 3.14 required for CPM
 
 # Set these to match your chip architecture and build toolchain
-set(THREADX_ARCH "cortex_m4")
-set(THREADX_TOOLCHAIN "gnu")
+option(THREADX_ARCH "" "cortex_m4")
+option(THREADX_TOOLCHAIN "" "gnu")
 
 project(threadX_demo
     VERSION 6.0.0
@@ -14,7 +14,6 @@ project(threadX_demo
 set(APP_SOURCES
     common/demo_threadx.c
 )
-
 
 # Pick up the port specific variables
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN}")
@@ -36,6 +35,9 @@ CPMAddPackage(
     NAME threadX_lib
     GIT_REPOSITORY git@github.com:azurertos/threadx.git
     GIT_TAG master
+    OPTIONS
+        # Tell threadX to use our custom tx_user.h
+        "TX_USER_FILE ${CMAKE_CURRENT_LIST_DIR}/common/tx_user.h"
 )
 
 # And use the provided linker script on the targets
