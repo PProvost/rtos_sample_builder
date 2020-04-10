@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 # NOTE: 3.13.5 req'd for add_link_options, 3.14 required for CPM
 
+include(FeatureSummary)
+
 # Set these to match your chip architecture and build toolchain
 set(THREADX_ARCH "cortex_m4" CACHE STRING "")
 set(THREADX_TOOLCHAIN "gnu" CACHE STRING "")
@@ -63,3 +65,5 @@ add_custom_command(
     POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
 )
+
+feature_summary(WHAT ALL)
