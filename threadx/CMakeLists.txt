@@ -42,6 +42,20 @@ CPMAddPackage(
     GIT_TAG master
 )
 
+include(cmake/CPM.cmake)
+CPMAddPackage(
+    NAME netxduo_lib
+    GIT_REPOSITORY git@github.com:azurertos/netx-duo.git
+    GIT_TAG master
+)
+
+include(cmake/CPM.cmake)
+CPMAddPackage(
+    NAME usbx_lib
+    GIT_REPOSITORY git@github.com:azurertos/usbx.git
+    GIT_TAG master
+)
+
 # Option 2 - Include threadX from a local source dir (e.g. git submodule)
 # add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 
