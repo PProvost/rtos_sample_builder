@@ -14,7 +14,7 @@ rm -rf $BUILDDIR/*
 # Generate the build system using Ninja
 cmake -B"$BUILDDIR" -GNinja -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/cortex-m4.cmake $BASEDIR
 # Generate the build system using the system default
-# cmake -B"$BUILDDIR" -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/arm-gcc-toolchain.cmake $BASEDIR
+# cmake -B"$BUILDDIR" -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/cortex-m4.cmake $BASEDIR
 
 # And then do the build
 cmake --build $BUILDDIR
