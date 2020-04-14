@@ -15,22 +15,18 @@ set(THREADX_TOOLCHAIN "gnu" CACHE STRING "")
 # Provide a custom tx_user.h file
 set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h" CACHE STRING "")
 
-# Add the demo source files
-set(APP_SOURCES
-    app/src/demo_threadx.c
-)
+# Tell CMake we're making an executable
+add_executable(${PROJECT_NAME})
 
 # Pick up the port specific variables
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN}")
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN})
 
 # Include threadX components from a local source dir (e.g. git submodule)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 # add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/netx-duo)
 # add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/filex)
 # add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/usbx)
-
-# Tell CMake we're making an executable
-add_executable(${PROJECT_NAME})
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
@@ -42,13 +38,12 @@ target_sources(${PROJECT_NAME}
         ${APP_SOURCES}
 )
 
-# target_compile_definitions(${PROJECT_NAME} PRIVATE ${COMPILE_OPTIONS})
-# target_link_options(${PROJECT_NAME} INTERFACE ${LINK_OPTIONS})
-target_link_options(threadX_lib INTERFACE -T ${LINKER_SCRIPT})
+target_link_options(threadX INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
 
 # Link the demo with the RTOS lib and any other obj files provided by the port
-target_link_libraries(${PROJECT_NAME} PRIVATE threadX_lib ${LINK_EXTRA_FILES})
+# Must use the PUBLIC section since the dependencies are just pushing source to us
+target_link_libraries(${PROJECT_NAME} PUBLIC threadX ${LINK_EXTRA_FILES})
 
 # Custom command to copy the output file into a .BIN file
 add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
