@@ -27,7 +27,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOO
 # Include threadX components from a local source dir (e.g. git submodule)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/netx-duo)
-# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/filex)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/filex)
 # add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/usbx)
 
 # The linker output should be .elf so we can keep track of it
