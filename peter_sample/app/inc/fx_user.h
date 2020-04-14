@@ -1,0 +1,8 @@
+#ifndef FX_USER_H
+#define FX_USER_H
+
+#ifndef FX_DISABLE_INCLUDE_SOURCE_CODE
+#define FX_DISABLE_INCLUDE_SOURCE_CODE
+#endif
+
+#endif // FX_USER_H
