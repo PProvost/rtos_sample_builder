@@ -8,26 +8,26 @@ set(LINKER_SCRIPT
     PARENT_SCOPE
 )
 
-# Compiler options
-set(COMPILE_OPTIONS
-    --specs=nosys.specs 
-    -fdata-sections 
-    -ffunction-sections 
-    -fstack-usage   
-    -mcpu=cortex-m4 
-    -mthumb 
-    PARENT_SCOPE
-)
+# # Compiler options
+# set(COMPILE_OPTIONS
+#     --specs=nosys.specs 
+#     -fdata-sections 
+#     -ffunction-sections 
+#     -fstack-usage   
+#     -mcpu=cortex-m4 
+#     -mthumb 
+#     PARENT_SCOPE
+# )
 
-# Linker options
-set(LINK_OPTIONS
-    LINKER:--gc-sections
-    LINKER:-A,cortex-m4
-    LINKER:-eReset_Handler
-    LINKER:-Map=${PROJECT_NAME}.map
-    LINKER:-static
-    PARENT_SCOPE
-)
+# # Linker options
+# set(LINK_OPTIONS
+#     LINKER:--gc-sections
+#     LINKER:-A,cortex-m4
+#     LINKER:-eReset_Handler
+#     LINKER:-Map=${PROJECT_NAME}.map
+#     LINKER:-static
+#     PARENT_SCOPE
+# )
 
 set(PORT_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/tx_vector_table.S
