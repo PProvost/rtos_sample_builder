@@ -14,6 +14,7 @@ include(FeatureSummary)
 
 # Provide a custom tx_user.h file
 set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h" CACHE STRING "")
+set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h" CACHE STRING "")
 
 # Define this target
 add_executable(${PROJECT_NAME})
@@ -26,18 +27,19 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOO
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/netx-duo)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/filex)
-# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/usbx)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/usbx)
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 
 # Linker scripts
-target_link_options(threadX INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
+target_link_options(threadx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
+target_link_options(netxduo INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 
 # Link the demo with the RTOS lib and any other obj files provided by the port
 # Must use the PUBLIC section since the dependencies are just pushing source to us
-target_link_libraries(${PROJECT_NAME} PUBLIC threadX ${LINK_EXTRA_FILES})
+target_link_libraries(${PROJECT_NAME} PUBLIC threadx netxduo ${LINK_EXTRA_FILES})
 
 # Custom command to copy the output file into a .BIN file
 add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
