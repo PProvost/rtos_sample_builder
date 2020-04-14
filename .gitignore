@@ -3,6 +3,7 @@ _deps/
 build/
 CMakeFiles/
 CMakeScripts/
+graphviz/
 CMakeLists.txt.user
 CMakeCache.txt
 Testing
