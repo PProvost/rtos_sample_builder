@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
-# NOTE: 3.13.5 req'd for add_link_options, 3.14 required for CPM
+# NOTE: 3.14 required for CPM, if not using it, 3.0.0 is probably okay
 
+# Project name, version and languages
 project(threadX_demo
     VERSION 6.0.0
     LANGUAGES C ASM
 )
 
+# Include helper modules
 include(FeatureSummary)
 
 # Set these to match your chip architecture and build toolchain
@@ -15,7 +17,7 @@ set(THREADX_TOOLCHAIN "gnu" CACHE STRING "")
 # Provide a custom tx_user.h file
 set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h" CACHE STRING "")
 
-# Tell CMake we're making an executable
+# Define this target
 add_executable(${PROJECT_NAME})
 
 # Pick up the port specific variables
@@ -31,13 +33,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 
-# Add the sources
-target_sources(${PROJECT_NAME}
-    PRIVATE
-        ${PORT_SOURCES}
-        ${APP_SOURCES}
-)
-
+# Linker scripts
 target_link_options(threadX INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
 
@@ -52,4 +48,5 @@ add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
     COMMENT "Building .hex and .bin file"
 )
 
+# Dump a report of features turned on/off across all included libraries
 feature_summary(WHAT ALL)
