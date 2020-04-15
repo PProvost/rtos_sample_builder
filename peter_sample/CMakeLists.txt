@@ -17,6 +17,7 @@ set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h")
 set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h")
 set(FX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/fx_user.h")
 set(UX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/ux_user.h")
+set(GX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/gx_user.h")
 
 # Define this target
 add_executable(${PROJECT_NAME})
