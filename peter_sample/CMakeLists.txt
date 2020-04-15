@@ -45,16 +45,9 @@ target_link_options(usbx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(levelx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(guix INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 
-# Define inter-library dependencies (can we move these into the libs?)
-target_link_libraries(guix INTERFACE threadx)
-target_link_libraries(levelx INTERFACE threadx)
-target_link_libraries(filex INTERFACE threadx)
-target_link_libraries(netxduo INTERFACE filex threadx)
-target_link_libraries(usbx INTERFACE netxduo threadx)
-
 # Must use the PUBLIC section for the app target since the dependencies are
 # just pushing source to us
-target_link_libraries(${PROJECT_NAME} PUBLIC threadx filex netxduo usbx levelx)
+target_link_libraries(${PROJECT_NAME} PUBLIC threadx filex netxduo usbx levelx guix)
 
 # Custom command to copy the output file into a .BIN file
 add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
