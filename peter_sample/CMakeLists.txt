@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
-# NOTE: 3.14 required for CPM, if not using it, 3.0.0 is probably okay
+cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 
 # Project name, version and languages
 project(threadX_demo
@@ -10,13 +9,11 @@ project(threadX_demo
 # Include helper modules
 include(FeatureSummary)
 
-# Set these to match your chip architecture and build toolchain
-
 # Provide a custom tx_user.h file
-set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h" CACHE STRING "")
-set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h" CACHE STRING "")
-set(FX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/fx_user.h" CACHE STRING "")
-set(UX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/ux_user.h" CACHE STRING "")
+set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h")
+set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h")
+set(FX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/fx_user.h")
+set(UX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/ux_user.h")
 
 # Define this target
 add_executable(${PROJECT_NAME})
@@ -41,9 +38,10 @@ target_link_options(netxduo INTERFACE -T ${LINKER_SCRIPT}) # Move this to the li
 target_link_options(filex INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(usbx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 
-# Link the demo with the RTOS lib and any other obj files provided by the port
+# Define inter-library dependencies (can we move these into the libs?)
 target_link_libraries(usbx INTERFACE threadx netxduo)
 target_link_libraries(netxduo INTERFACE threadx)
+
 # Must use the PUBLIC section for the app target since the dependencies are
 # just pushing source to us
 target_link_libraries(${PROJECT_NAME} PUBLIC threadx filex netxduo usbx)
@@ -51,7 +49,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC threadx filex netxduo usbx)
 # Custom command to copy the output file into a .BIN file
 add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
-    COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
+    COMMAND ${CMAKE_OBJCOPY} -I binary -O ihex ${PROJECT_NAME}.bin ${PROJECT_NAME}.hex
     COMMENT "Building .hex and .bin file"
 )
 
