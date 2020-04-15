@@ -1,4 +1,7 @@
-cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
+
+# See https://cmake.org/cmake/help/latest/policy/CMP0079.html for more info
+cmake_policy(SET CMP0079 NEW)
 
 # Project name, version and languages
 project(threadX_demo
@@ -39,8 +42,9 @@ target_link_options(filex INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(usbx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 
 # Define inter-library dependencies (can we move these into the libs?)
-target_link_libraries(usbx INTERFACE threadx netxduo)
 target_link_libraries(netxduo INTERFACE threadx)
+target_link_libraries(filex INTERFACE threadx)
+target_link_libraries(usbx INTERFACE netxduo threadx)
 
 # Must use the PUBLIC section for the app target since the dependencies are
 # just pushing source to us
