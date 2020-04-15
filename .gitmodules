@@ -13,3 +13,6 @@
 [submodule "peter_sample/lib/levelx"]
 	path = peter_sample/lib/levelx
 	url = git@github.com:azurertos/levelx.git
+[submodule "peter_sample/lib/guix"]
+	path = peter_sample/lib/guix
+	url = git@github.com:azurertos/guix.git
