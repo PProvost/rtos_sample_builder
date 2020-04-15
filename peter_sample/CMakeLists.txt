@@ -30,6 +30,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/threadx)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/netx-duo)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/filex)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/usbx)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/levelx)
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
@@ -40,15 +41,17 @@ target_link_options(threadx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the li
 target_link_options(netxduo INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(filex INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 target_link_options(usbx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
+target_link_options(levelx INTERFACE -T ${LINKER_SCRIPT}) # Move this to the lib?
 
 # Define inter-library dependencies (can we move these into the libs?)
-target_link_libraries(netxduo INTERFACE threadx)
+target_link_libraries(levelx INTERFACE threadx)
 target_link_libraries(filex INTERFACE threadx)
+target_link_libraries(netxduo INTERFACE filex threadx)
 target_link_libraries(usbx INTERFACE netxduo threadx)
 
 # Must use the PUBLIC section for the app target since the dependencies are
 # just pushing source to us
-target_link_libraries(${PROJECT_NAME} PUBLIC threadx filex netxduo usbx)
+target_link_libraries(${PROJECT_NAME} PUBLIC threadx filex netxduo usbx levelx)
 
 # Custom command to copy the output file into a .BIN file
 add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
