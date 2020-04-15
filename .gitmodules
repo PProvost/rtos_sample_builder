@@ -10,3 +10,6 @@
 [submodule "peter_sample/lib/usbx"]
 	path = peter_sample/lib/usbx
 	url = git@github.com:azurertos/usbx.git
+[submodule "peter_sample/lib/levelx"]
+	path = peter_sample/lib/levelx
+	url = git@github.com:azurertos/levelx.git
