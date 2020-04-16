@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
 # See https://cmake.org/cmake/help/latest/policy/CMP0079.html for more info
 cmake_policy(SET CMP0079 NEW)
 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 # Project name, version and languages
 project(threadX_demo
     VERSION 6.0.0
@@ -11,7 +13,7 @@ project(threadX_demo
 
 # Include helper modules
 include(FeatureSummary)
-include(cmake/utilities.cmake)
+include(utilities)
 
 # Provide a custom tx_user.h file
 set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h")
@@ -27,9 +29,10 @@ add_executable(${PROJECT_NAME})
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN})
 
-add_azrtos_component(threadx threadx)
-add_azrtos_component(netx-duo netxduo)
-add_azrtos_component(filex filex)
+# Pick up the required Azure RTOS components
+add_azrtos_component_dir(threadx threadx)
+add_azrtos_component_dir(netx-duo netxduo)
+add_azrtos_component_dir(filex filex)
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
