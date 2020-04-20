@@ -16,3 +16,6 @@
 [submodule "peter_sample/lib/guix"]
 	path = peter_sample/lib/guix
 	url = git@github.com:azurertos/guix.git
+[submodule "peter_sample/lib/netx"]
+	path = peter_sample/lib/netx
+	url = git@github.com:azurertos/netx.git
