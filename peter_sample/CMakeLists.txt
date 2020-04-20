@@ -31,7 +31,8 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOO
 
 # Pick up the required Azure RTOS components
 add_azrtos_component_dir(threadx threadx)
-add_azrtos_component_dir(netx-duo netxduo)
+# add_azrtos_component_dir(netx-duo netxduo)
+add_azrtos_component_dir(netx netx)
 add_azrtos_component_dir(filex filex)
 
 # The linker output should be .elf so we can keep track of it
