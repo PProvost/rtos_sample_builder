@@ -25,6 +25,15 @@ jobs:
 #     - name: Install build-essential
 #       run: sudo apt-get install build-essential
 
+    # Get the arm-non-eabi-gcc toolchain   
+    - name: Install arm-none-eabi-gcc
+      uses: fiam/arm-none-eabi-gcc@v1
+      with:
+        # GNU Embedded Toolchain for Arm release name, in the V-YYYY-qZ format (e.g. "9-2019-q4")
+        release: # optional
+        # Directory to unpack GCC to. Defaults to a temporary directory.
+        directory: # optional
+
     # Get CMake into the environment
     - name: Install cmake 3.17.1
       uses: lukka/get-cmake@v3.17.1
