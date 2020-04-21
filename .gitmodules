@@ -1,21 +1,21 @@
 [submodule "peter_sample/lib/threadx"]
-	path = peter_sample/lib/threadx
+	path = threadx_simple/lib/threadx
 	url = git@github.com:azurertos/threadx.git
 [submodule "peter_sample/lib/netx-duo"]
-	path = peter_sample/lib/netx-duo
+	path = threadx_simple/lib/netx-duo
 	url = git@github.com:azurertos/netx-duo.git
 [submodule "peter_sample/lib/filex"]
-	path = peter_sample/lib/filex
+	path = threadx_simple/lib/filex
 	url = git@github.com:azurertos/filex.git
 [submodule "peter_sample/lib/usbx"]
-	path = peter_sample/lib/usbx
+	path = threadx_simple/lib/usbx
 	url = git@github.com:azurertos/usbx.git
 [submodule "peter_sample/lib/levelx"]
-	path = peter_sample/lib/levelx
+	path = threadx_simple/lib/levelx
 	url = git@github.com:azurertos/levelx.git
 [submodule "peter_sample/lib/guix"]
-	path = peter_sample/lib/guix
+	path = threadx_simple/lib/guix
 	url = git@github.com:azurertos/guix.git
 [submodule "peter_sample/lib/netx"]
-	path = peter_sample/lib/netx
+	path = threadx_simple/lib/netx
 	url = git@github.com:azurertos/netx.git
