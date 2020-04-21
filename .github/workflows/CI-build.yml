@@ -51,7 +51,7 @@ jobs:
 
     # Prepare the build system
     - name: Prepare build system
-      run: cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=./cmake/cortex-m4.cmake -GNinja ./peter_sample
+      run: cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=./cmake/cortex-m4.cmake -GNinja ./threadx_simple
 
     - name: Compile and link
       run: cmake --build ./build
