@@ -21,6 +21,8 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        submodules: true
 
 #     - name: Install build-essential
 #       run: sudo apt-get install build-essential
@@ -39,11 +41,11 @@ jobs:
     - name: Install ninja-build
       uses: seanmiddleditch/gha-setup-ninja@v1
 
-    # Update all submodules
-    - name: Checkout submodules
-      uses: srt32/git-actions@v0.0.3
-      with:
-        args: git submodule update --init --recursive
+    # # Update all submodules
+    # - name: Checkout submodules
+    #   uses: srt32/git-actions@v0.0.3
+    #   with:
+    #     args: git submodule update --init --recursive
 
     # Prepare the build system
     - name: Prepare build system
