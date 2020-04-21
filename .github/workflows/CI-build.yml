@@ -38,7 +38,13 @@ jobs:
     # Get Ninja into the environment
     - name: Install ninja-build
       uses: seanmiddleditch/gha-setup-ninja@v1
-    
+
+    # Update all submodules
+    - name: Checkout submodules
+      uses: srt32/git-actions@v0.0.3
+      with:
+        args: git submodule update --init --recursive
+
     # Prepare the build system
     - name: Prepare build system
       run: cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=./cmake/cortex-m4.cmake -GNinja ./peter_sample
