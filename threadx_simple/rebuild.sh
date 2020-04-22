@@ -1,4 +1,14 @@
 #!/bin/bash
+# A simple shell script for building the demo app
+# Written by Peter Provost <peter.provost@microsoft.com>
+# 
+# Usage:
+#    ./rebuild.sh [target_arch]
+#
+# Notes:
+#    - target_arch must match the name of the appropriate file in the
+#      cmake/ directory. Do not include the .cmake extension. 
+#      Default is "cortex_m4".
 
 # Use paths relative to this script's location
 SCRIPT=$(readlink -f "$0")
