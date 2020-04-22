@@ -4,6 +4,12 @@
 SCRIPT=$(readlink -f "$0")
 BASEDIR=$(dirname "$SCRIPT")
 
+if [ -z "$1" ]; then
+    TARGET_MCU="cortex_m4"
+else
+    TARGET_MCU=$1
+fi
+
 # If you want to build into a different directory, change this variable
 BUILDDIR="$BASEDIR/build"
 
@@ -12,9 +18,9 @@ mkdir -p $BUILDDIR
 rm -rf $BUILDDIR/*
 
 # Generate the build system using Ninja
-cmake -B"$BUILDDIR" -GNinja -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/cortex-m4.cmake $BASEDIR
+cmake -B"$BUILDDIR" -GNinja -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/${TARGET_MCU}.cmake $BASEDIR
 # Generate the build system using the system default
-# cmake -B"$BUILDDIR" -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/cortex-m4.cmake $BASEDIR
+# cmake -B"$BUILDDIR" -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/cmake/${TARGET_MCU}.cmake $BASEDIR
 
 # And then do the build
 cmake --build $BUILDDIR
