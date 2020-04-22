@@ -32,25 +32,29 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOO
 # Pick up the required Azure RTOS components
 add_azrtos_component_dir(threadx threadx)
 # add_azrtos_component_dir(netx-duo netxduo)
-add_azrtos_component_dir(netx netx)
-add_azrtos_component_dir(filex filex)
+# add_azrtos_component_dir(netx netx)
+# add_azrtos_component_dir(filex filex)
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 
 # Apply the linker scripts to the app target
-target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
+if(${LINKER_SCRIPT})
+    target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
+endif()
 
 # Must use the PUBLIC section for the app target since the dependencies are
 # just pushing source to us
 target_link_libraries(${PROJECT_NAME} PUBLIC ${azrtos_targets})
 
-# Custom command to copy the output file into a .BIN file
-add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
-    COMMAND ${CMAKE_OBJCOPY} -I binary -O ihex ${PROJECT_NAME}.bin ${PROJECT_NAME}.hex
-    COMMENT "Building .hex and .bin file"
-)
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    # Custom command to copy the output file into a .BIN file
+    add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
+        COMMAND ${CMAKE_OBJCOPY} -I binary -O ihex ${PROJECT_NAME}.bin ${PROJECT_NAME}.hex
+        COMMENT "Building .hex and .bin file"
+    )
+endif()
 
 # Dump a report of features turned on/off across all included libraries
 feature_summary(WHAT ALL)

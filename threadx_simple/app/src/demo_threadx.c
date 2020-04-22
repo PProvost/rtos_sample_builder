@@ -4,6 +4,10 @@
 
 #include "tx_api.h"
 
+#ifdef __linux__ 
+#include   <stdio.h>
+#endif
+
 #define DEMO_STACK_SIZE         1024
 #define DEMO_BYTE_POOL_SIZE     9120
 #define DEMO_BLOCK_POOL_SIZE    100
@@ -31,16 +35,16 @@ UCHAR                   memory_area[DEMO_BYTE_POOL_SIZE];
 
 /* Define the counters used in the demo application...  */
 
-ULONG                   thread_0_counter;
-ULONG                   thread_1_counter;
-ULONG                   thread_1_messages_sent;
-ULONG                   thread_2_counter;
-ULONG                   thread_2_messages_received;
-ULONG                   thread_3_counter;
-ULONG                   thread_4_counter;
-ULONG                   thread_5_counter;
-ULONG                   thread_6_counter;
-ULONG                   thread_7_counter;
+ULONG           thread_0_counter;
+ULONG           thread_1_counter;
+ULONG           thread_1_messages_sent;
+ULONG           thread_2_counter;
+ULONG           thread_2_messages_received;
+ULONG           thread_3_counter;
+ULONG           thread_4_counter;
+ULONG           thread_5_counter;
+ULONG           thread_6_counter;
+ULONG           thread_7_counter;
 
 
 /* Define thread prototypes.  */
@@ -67,10 +71,8 @@ int main()
 
 void    tx_application_define(void *first_unused_memory)
 {
-
-CHAR    *pointer;
-
-
+    CHAR    *pointer;
+    
     /* Create a byte memory pool from which to allocate the thread stacks.  */
     tx_byte_pool_create(&byte_pool_0, "byte pool 0", memory_area, DEMO_BYTE_POOL_SIZE);
 
@@ -187,6 +189,19 @@ UINT    status;
 
         /* Increment the thread counter.  */
         thread_0_counter++;
+
+#ifdef __linux__ 
+        /* Print results.  */
+        printf("**** ThreadX Linux Demonstration **** (c) 2006-2014 Express Logic, Inc.\n\n");
+        printf("           thread 0 events sent:          %lu\n", thread_0_counter);
+        printf("           thread 1 messages sent:        %lu\n", thread_1_counter);
+        printf("           thread 2 messages received:    %lu\n", thread_2_counter);
+        printf("           thread 3 obtained semaphore:   %lu\n", thread_3_counter);
+        printf("           thread 4 obtained semaphore:   %lu\n", thread_4_counter);
+        printf("           thread 5 events received:      %lu\n", thread_5_counter);
+        printf("           thread 6 mutex obtained:       %lu\n", thread_6_counter);
+        printf("           thread 7 mutex obtained:       %lu\n\n", thread_7_counter);
+#endif
 
         /* Sleep for 10 ticks.  */
         tx_thread_sleep(10);
