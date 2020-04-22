@@ -39,7 +39,8 @@ add_azrtos_component_dir(threadx threadx)
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 
 # Apply the linker scripts to the app target
-if(${LINKER_SCRIPT})
+if(EXISTS ${LINKER_SCRIPT})
+    message(STATUS "Using linker script: ${LINKER_SCRIPT}")
     target_link_options(${PROJECT_NAME} INTERFACE -T ${LINKER_SCRIPT})
 endif()
 
