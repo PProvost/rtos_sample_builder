@@ -15,8 +15,8 @@ SCRIPT=$(readlink -f "$0")
 BASEDIR=$(dirname "$SCRIPT")
 BUILDDIR="$BASEDIR/build"
 
-[ -z "$1" ] && TARGET_MCU="cortex_m4" || TARGET_MCU=$1
-TOOLCHAIN_FILE=$BASEDIR/cmake/${TARGET_MCU}.cmake
+[ -z "$1" ] && TOOLCHAIN_NAME="cortex_m4" || TOOLCHAIN_NAME=$1
+TOOLCHAIN_FILE=$BASEDIR/cmake/${TOOLCHAIN_NAME}.cmake
 
 echo "Using CMake toolchain ${TOOLCHAIN_FILE}"
 
