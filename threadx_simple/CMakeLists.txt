@@ -25,9 +25,9 @@ set(GX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/gx_user.h")
 # Define this target
 add_executable(${PROJECT_NAME})
 
-# Pick up the port specific variables
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
+# Pick up the port specific variables before the app
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN})
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 
 # Pick up the required Azure RTOS components
 add_azrtos_component_dir(threadx threadx)

@@ -12,7 +12,7 @@ set(SIZE                size)
 set(THREADX_ARCH "linux")
 set(THREADX_TOOLCHAIN "gnu")
 
-set(LINUX_FLAGS "-g -DTX_LINUX_DEBUG_ENABLE -D_GNU_SOURCE -DTX_LINUX_MULTI_CORE")
+set(LINUX_FLAGS "-g -pthread -DTX_LINUX_DEBUG_ENABLE -D_GNU_SOURCE -DTX_LINUX_MULTI_CORE")
 # set(LD_FLAGS "-lpthread -lrt")
 
 set(CMAKE_C_FLAGS   "${LINUX_FLAGS} " CACHE INTERNAL "c compiler flags")
