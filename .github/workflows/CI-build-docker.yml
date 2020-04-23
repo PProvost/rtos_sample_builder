@@ -21,8 +21,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Prepare APT
+      run: apt-get update -y -q && apt-get install -y -q software-properties-common dirmngr apt-transport-https lsb-release ca-certificates
+
     - name: Install git
-      run: apt-get install -y -q software-properties-common && add-apt-repository ppa:git-core/ppa && apt-get update -y -q && apt-get install -y -q git
+      run: add-apt-repository ppa:git-core/ppa && apt-get update -y -q && apt-get install -y -q git
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout sources recursively
