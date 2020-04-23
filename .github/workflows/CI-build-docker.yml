@@ -21,6 +21,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Install git
+      run: apt install -y -q git
+
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout sources recursively
       uses: actions/checkout@v2
