@@ -23,6 +23,27 @@ environment:
 3. cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=./cmake/cortex_m4.cmake .
 4. cmake --build ./build
 
+# Resolving the git submodules
+
+## Authentication method
+
+Currently the submodules in this project are defined using SSH connection
+strings instead of HTTPS connection strings. If you don't use SSH with git,
+you will need to edit the .gitmodules file, replacing the lines that look like this
+
+> git@github.com:azurertos/threadx.git
+
+with lines like this
+
+> https://github.com/azurertos/threadx.git
+
+Then you can proceed with the next steps
+
+## Pulling the submodules
+
+1. git submodule init
+2. git submodule update
+
 # Customizing your build
 
 Before you can build and flash this sample to a real device, you may  need to make a few changes:
