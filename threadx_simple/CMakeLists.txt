@@ -12,7 +12,6 @@ project(threadX_demo
 )
 
 # Include helper modules
-include(FeatureSummary)
 include(utilities)
 
 # Provide a custom tx_user.h file
@@ -56,6 +55,3 @@ if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
         COMMENT "Building .hex and .bin file"
     )
 endif()
-
-# Dump a report of features turned on/off across all included libraries
-feature_summary(WHAT ALL)
