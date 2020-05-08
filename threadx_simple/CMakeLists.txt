@@ -34,8 +34,10 @@ add_azrtos_component_dir(threadx threadx)
 # add_azrtos_component_dir(filex filex)
 # add_azrtos_component_dir(usbx usbx)
 
-# The linker output should be .elf so we can keep track of it
-set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
+# For non-Windows configurations, the linker output should be .elf so we can keep track of it
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
+endif()
 
 # Apply the linker scripts to the app target
 if(EXISTS ${LINKER_SCRIPT})
@@ -47,7 +49,8 @@ endif()
 # just pushing source to us
 target_link_libraries(${PROJECT_NAME} PUBLIC ${azrtos_targets})
 
-if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+if( (NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND
+    (NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Windows") )
     # Custom command to copy the output file into a .BIN file
     add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
