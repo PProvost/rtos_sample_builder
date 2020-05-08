@@ -30,9 +30,9 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 
 # Pick up the required Azure RTOS components
 add_azrtos_component_dir(threadx threadx)
-add_azrtos_component_dir(netx-duo netxduo)
-add_azrtos_component_dir(filex filex)
-add_azrtos_component_dir(usbx usbx)
+# add_azrtos_component_dir(netx-duo netxduo)
+# add_azrtos_component_dir(filex filex)
+# add_azrtos_component_dir(usbx usbx)
 
 # The linker output should be .elf so we can keep track of it
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
