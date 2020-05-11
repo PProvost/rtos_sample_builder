@@ -29,10 +29,11 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOO
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 
 # Pick up the required Azure RTOS components
-add_azrtos_component_dir(threadx threadx)
-# add_azrtos_component_dir(netx-duo netxduo)
-# add_azrtos_component_dir(filex filex)
-# add_azrtos_component_dir(usbx usbx)
+set(NXD_ENABLE_FILE_SERVERS OFF CACHE BOOL "Disable fileX dependency by netxduo.")
+add_azrtos_component_dir(threadx)
+add_azrtos_component_dir(netxduo)
+# add_azrtos_component_dir(filex)
+# add_azrtos_component_dir(usbx)
 
 # For non-Windows configurations, the linker output should be .elf so we can keep track of it
 if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
