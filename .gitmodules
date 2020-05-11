@@ -1,0 +1,3 @@
+[submodule "threadx_simple/lib/threadx"]
+	path = threadx_simple/lib/threadx
+	url = git@github.com:azure-rtos/threadx.git

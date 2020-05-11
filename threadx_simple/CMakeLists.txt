@@ -14,17 +14,17 @@ project(threadX_demo
 # Include helper modules
 include(utilities)
 
-# Provide a custom tx_user.h file
+# Provide custom *_user.h files for configuration overrides
 set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h")
-set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h")
-set(FX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/fx_user.h")
-set(UX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/ux_user.h")
-set(GX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/gx_user.h")
+# set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h")
+# set(FX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/fx_user.h")
+# set(UX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/ux_user.h")
+# set(GX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/gx_user.h")
 
-# Define this target
+# Define this target as an executable
 add_executable(${PROJECT_NAME})
 
-# Pick up the port specific variables before the app
+# Pick up the port specific directories before the app
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN})
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 
@@ -49,6 +49,7 @@ endif()
 # just pushing source to us
 target_link_libraries(${PROJECT_NAME} PUBLIC ${azrtos_targets})
 
+# If not Linux or Windows, create the BIN and HEX files for flashing
 if( (NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND
     (NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Windows") )
     # Custom command to copy the output file into a .BIN file
