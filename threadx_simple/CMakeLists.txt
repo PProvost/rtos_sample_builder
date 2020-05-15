@@ -15,7 +15,7 @@ project(threadX_demo
 include(utilities)
 
 # Provide custom *_user.h files for configuration overrides
-set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h")
+# set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/tx_user.h")
 # set(NX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/nx_user.h")
 # set(FX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/fx_user.h")
 # set(UX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/app/inc/ux_user.h")
@@ -26,6 +26,10 @@ add_executable(${PROJECT_NAME})
 
 # Pick up the port specific directories before the app
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN})
+
+# This can be used to pick any single demo_*.c file from the samples app directory
+set(TX_DEMO_COMPONENT "nxd")
+set(TX_DEMO_SOURCE "demo_netx_duo_udp.c")
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 
 # Pick up the required Azure RTOS components
