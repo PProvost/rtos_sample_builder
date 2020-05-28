@@ -35,7 +35,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         groupmod --gid $USER_GID $USERNAME \
         && usermod --uid $USER_UID --gid $USER_GID $USERNAME \
         && chown -R $USER_UID:$USER_GID /home/$USERNAME; \
-    fi \
+    fi && \
     apt-get autoremove -y && \
     apt-get clean -y -q
 
