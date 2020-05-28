@@ -7,4 +7,6 @@
         "twxs.cmake",
         "ms-vscode.cmake-tools"
     ],
+
+    "remoteUser": "vscode"
 }
