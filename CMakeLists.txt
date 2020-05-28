@@ -28,8 +28,7 @@ add_executable(${PROJECT_NAME})
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ports/${THREADX_ARCH}/${THREADX_TOOLCHAIN})
 
 # This can be used to pick any single demo_*.c file from the samples app directory
-set(TX_DEMO_COMPONENT "nxd")
-set(TX_DEMO_SOURCE "demo_netx_duo_udp.c")
+set(TX_DEMO_SOURCE "nxd/demo_netx_duo_udp.c")
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app)
 
 # Pick up the required Azure RTOS components

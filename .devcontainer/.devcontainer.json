@@ -1,0 +1,10 @@
+{
+    "dockerFile": "Dockerfile",
+
+    "extensions": [
+        "xaver.clang-format",
+        "zixuanwang.linkerscript",
+        "twxs.cmake",
+        "ms-vscode.cmake-tools"
+    ],
+}
